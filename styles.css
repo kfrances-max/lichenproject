@@ -1,48 +1,295 @@
+/* Base reset and typography */
 body {
-    padding: 0;
     margin: 0;
-}
-html, body, #map {
+    padding: 0;
+    font-family: "Source Code Pro", monospace;
+    background: #000;
+    color: #eee;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  html, body, #map {
+    background: #000 !important;
     height: 100%;
     width: 100vw;
-    background-color: black;
-    font-family: "Source Code Pro", monospace;
-}
- a {
-color:#9999cc;
- }
-
-.cards .leaflet-popup-content {
-    width:auto !important;
+  }
+  
+  /* Landing full-screen hero */
+  .landing {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    overflow: hidden;
+    background: #000;
+  }
+  
+  .landing-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: url('img/lichenmapc.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.45) contrast(1);
+    transform-origin: center;
+  }
+  
+  /* Landing content card */
+  .landing-content {
+    position: relative;
+    z-index: 2;
+    max-width: 920px;
+    width: calc(100% - 40px);
+    margin: 20px;
+    background: rgba(8,12,30,0.6);
+    border-radius: 8px;
+    padding: 22px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    color: #fff;
+    backdrop-filter: blur(20px);
+  }
+  
+  .landing-content h1 {
+    margin: 0 0 8px 0;
+    font-size: 1.6rem;
+    line-height: 1.1;
+    color: #fff;
+  }
+  
+  .landing-content .lead {
+    margin: 8px 0 16px 0;
+    color: #e8e8e8;
+    font-size: 1rem;
+  }
+  
+  .landing-meta {
+    font-size: 0.9rem;
+    color: #ddd;
+    margin-bottom: 16px;
+  }
+  
+  .landing-meta .credits {
+    margin: 0 0 8px 0;
+    line-height: 1.4;
+  }
+  
+  .landing-meta a {
+    color: #cfcfff;
+    text-decoration: underline;
+  }
+  
+  /* Actions */
+  .landing-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  
+  .btn-primary {
+    background: #6b4cff;
+    color: #fff;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 6px 18px rgba(107,76,255,0.18);
+  }
+  
+  .btn-primary:active,
+  .btn-primary:focus {
+    outline: none;
+    transform: translateY(1px);
+  }
+  
+  /* Map container sits behind landing until opened */
+  #map {
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    width: 100%;
+    visibility: visible;
+  }
+  
+  /* Cards page button top-right */
+  .card-index-btn {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 100000;
+    background: rgba(255,255,255,0.95);
+    border: none;
+    padding: 8px 10px;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #111;
+  }
+  
+  .card-index-btn img {
+    width: 28px;
+    height: 28px;
+    display: block;
+  }
+  
+  .card-index-btn .btn-label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #111;
+  }
+  
+  /* Popup card styling override */
+  .cards .leaflet-popup-content {
+    width: auto !important;
+  }
+  
+  /* Small screen adjustments */
+  @media (max-width: 640px) {
+    .landing-content {
+      padding: 16px;
     }
-    
-    #modal {
-        position: fixed;
-        font-family: Arial, Helvetica, sans-serif;
-        top: 0;
-        left: 0;
-        background: rgba(0, 0, 0, 0.8);
-        z-index: 99999;
-        height: 100%;
-        width: 100%;
+  
+    .landing-content h1 {
+      font-size: 1.25rem;
     }
-
-    .modalconent {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: #ffcccc;
-        width: 80%;
-        height:80%;
-        padding: 25px;
-        overflow-y: auto;
-        font-family:"Source Code Pro", monospace;
+  
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
     }
-
-    .inlineimg {
-        max-width: 2em;
-       max-height: 2em;
+  
+    .card-index-btn {
+      top: 10px;
+      right: 8px;
+      padding: 8px;
     }
-
-    
+  }
+  
+  /* Accessibility helpers */
+  .sr-only {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  
+  /* -------------------------
+     Gallery page styles
+     ------------------------- */
+  
+  .gallery-header {
+    background: #0b0b0b;
+    color: #fff;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  
+  .back-link {
+    color: #cfcfff;
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  
+  .gallery-title {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #fff;
+  }
+  
+  .gallery-sub {
+    margin: 0;
+    color: #ddd;
+    font-size: 0.95rem;
+  }
+  
+  .gallery-main {
+    padding: 20px;
+    background: #050505;
+    min-height: calc(100vh - 160px);
+  }
+  
+  .gallery-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 18px;
+    align-items: start;
+    justify-items: center;
+  }
+  
+  .card-thumb {
+    width: 100%;
+    max-width: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    text-align: center;
+  }
+  
+  .card-thumb a {
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+    border: 1px solid rgba(255,255,255,0.03);
+    background: #0b0b0b;
+  }
+  
+  .card-thumb img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .card-thumb figcaption {
+    font-size: 0.9rem;
+    color: #ddd;
+    line-height: 1.2;
+    padding: 0 6px 6px 6px;
+  }
+  
+  .gallery-footer {
+    padding: 18px 20px;
+    color: #bbb;
+    font-size: 0.85rem;
+    background: #070707;
+    border-top: 1px solid rgba(255,255,255,0.02);
+  }
+  
+  /* Responsive gallery tweaks */
+  @media (max-width: 640px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+  
+    .gallery-header {
+      padding: 18px 14px;
+    }
+  }
+  
+ 
