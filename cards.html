@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Lichen Cards — Gallery</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+
+  <!-- Lightbox CSS -->
+  <link href="lightbox/dist/css/lightbox.css" rel="stylesheet" />
+
+  <!-- Project CSS (shared) -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Lightbox JS -->
+  <script src="lightbox/dist/js/lightbox-plus-jquery.js"></script>
+</head>
+
+<body>
+  <header class="gallery-header">
+    <a class="back-link" href="index.html" aria-label="Back to map">← Back to map</a>
+    <h1 class="gallery-title">Lichen Cards</h1>
+    <p class="gallery-sub">Scroll to browse. Tap any card to enlarge.</p>
+  </header>
+
+  <main class="gallery-main" role="main">
+    <div class="gallery-inner">
+      <section class="gallery-grid" aria-label="Lichen cards gallery">
+        <!-- Each anchor opens the full card in Lightbox; thumbnails are smaller versions (or same image scaled) -->
+        <figure class="card-thumb">
+          <a href="lightbox/dist/images/Caloplaca_marina_lichen_card_LR_010_24_08_24.jpg" data-lightbox="cards" data-title="Caloplaca marina">
+            <img src="lightbox/dist/images/Caloplaca_marina_lichen_card_LR_010_24_08_24.jpg" alt="Caloplaca marina card" />
+          </a>
+          <figcaption>Caloplaca marina</figcaption>
+        </figure>
+
+        <figure class="card-thumb">
+          <a href="lightbox/dist/images/Caloplaca_verruculifera_lichen_card_LR_010_24_08_24.jpg" data-lightbox="cards" data-title="Caloplaca verruculifera">
+            <img src="lightbox/dist/images/Caloplaca_verruculifera_lichen_card_LR_010_24_08_24.jpg" alt="Caloplaca verruculifera card" />
+          </a>
+          <figcaption>Caloplaca verruculifera</figcaption>
+        </figure>
+
+        <figure class="card-thumb">
+          <a href="lightbox/dist/images/Xanthoria_parietina__lichen_card_LR_010_24_08_24.jpg" data-lightbox="cards" data-title="Xanthoria parietina">
+            <img src="lightbox/dist/images/Xanthoria_parietina__lichen_card_LR_010_24_08_24.jpg" alt="Xanthoria parietina card" />
+          </a>
+          <figcaption>Xanthoria parietina</figcaption>
+        </figure>
+
+        <figure class="card-thumb">
+          <a href="lightbox/dist/images/Myriolecis_actophila_helicopsis_lichen_card_LR_010_24_08_24.jpg" data-lightbox="cards" data-title="Myriolecis actophila">
+            <img src="lightbox/dist/images/Myriolecis_actophila_helicopsis_lichen_card_LR_010_24_08_24.jpg" alt="Myriolecis actophila card" />
+          </a>
+          <figcaption>Myriolecis actophila</figcaption>
+        </figure>
+
+        <figure class="card-thumb">
+          <a href="lightbox/dist/images/Ramalina_siliquosa _lichen_card_LR_010_24_08_24.jpg" data-lightbox="cards" data-title="Ramalina siliquosa">
+            <img src="lightbox/dist/images/Ramalina_siliquosa _lichen_card_LR_010_24_08_24.jpg" alt="Ramalina siliquosa card" />
+          </a>
+          <figcaption>Ramalina siliquosa</figcaption>
+        </figure>
+
+        <!-- Add more figure.card-thumb blocks for additional cards -->
+      </section>
+    </div>
+  </main>
+
+  <footer class="gallery-footer">
+    <p class="credits-small">Produced by Toby Mills with Dr Rebecca Yahr and Rosy Naylor — Art Walk Porty</p>
+  </footer>
+</body>
+</html>
