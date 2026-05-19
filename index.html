@@ -24,7 +24,7 @@
 
       <p class="lead">
         Use this map to explore the unique maritime lichen community as you walk the breakwater.
-        Be careful of the edge and of slippery stones. Click on the star icons to learn more about the lichens you’ll find.
+        Be careful of the edge and of slippery stones. Click the stars on the map to learn more about the lichens you’ll find.
         See how many you can find!
       </p>
 
@@ -62,16 +62,16 @@
     const enterBtn = document.getElementById('enterMap');
     const mapEl = document.getElementById('map');
     const cardsPageBtn = document.getElementById('cardsPageBtn');
-
+  
     // Original image bounds
     const imageBounds = [[55.979493, -3.224126], [55.987837, -3.214514]];
-
-    // ⭐ NEW: padded bounds (extra top + extra left/right)
+  
+    // Padded bounds
     const paddedBounds = [
       [imageBounds[0][0] - 0.0008, imageBounds[0][1] - 0.0016], // SW
       [imageBounds[1][0] + 0.0032, imageBounds[1][1] + 0.0016]  // NE
     ];
-
+  
     const map = L.map('map', {
       center: [55.9839, -3.2195],
       zoom: 16,
@@ -84,13 +84,13 @@
       attributionControl: false,
       preferCanvas: true
     });
-
+  
     map.setMaxBounds(paddedBounds);
     map.options.maxBoundsViscosity = 0.8;
-
+  
     // Add the image overlay
     L.imageOverlay('img/lichenmapc.jpg', imageBounds).addTo(map);
-
+  
     // Icons
     const purpleIcon = L.icon({
       iconUrl: 'icons/starpurple.png',
@@ -98,14 +98,14 @@
       iconAnchor: [10, 10],
       className: 'map-icon glow-static'
     });
-
+  
     const yellowIcon = L.icon({
       iconUrl: 'icons/staryellow.png',
       iconSize: [30, 30],
       iconAnchor: [10, 10],
       className: 'map-icon'
     });
-
+  
     // Helper functions
     const createMarker = (icon, lat, lng, href, img, name) => {
       const m = L.marker([lat, lng], { icon }).addTo(map);
@@ -115,93 +115,127 @@
         </a>
       `);
     };
-
+  
     const createMarker2 = (icon, lat, lng, text) => {
       L.marker([lat, lng], { icon }).addTo(map).bindPopup(text);
     };
-
-    // ⭐ Centre popup when opened
+  
+    // ⭐⭐⭐ POPUP CENTRING FIX ⭐⭐⭐
+    let savedBounds = null;
+  
     map.on('popupopen', function (e) {
-      map.panTo(e.popup.getLatLng(), {
+      // Save bounds and remove them temporarily
+      savedBounds = map.options.maxBounds;
+      map.setMaxBounds(null);
+  
+      // Marker position
+      const markerLatLng = e.popup.getLatLng();
+  
+      // Convert marker to pixel coords
+      const markerPoint = map.latLngToContainerPoint(markerLatLng);
+  
+      // Popup height (your card height)
+      const popupHeight = 360;
+  
+      // Offset so popup is centred, not the marker
+      const offsetY = popupHeight / 2;
+  
+      // New pixel point
+      const centeredPoint = L.point(markerPoint.x, markerPoint.y - offsetY);
+  
+      // Convert back to lat/lng
+      const centeredLatLng = map.containerPointToLatLng(centeredPoint);
+  
+      // Pan to corrected position
+      map.panTo(centeredLatLng, {
         animate: true,
         duration: 0.4
       });
     });
-
+  
+    map.on('popupclose', function () {
+      if (savedBounds) {
+        map.setMaxBounds(savedBounds);
+      }
+    });
+    // ⭐⭐⭐ END FIX ⭐⭐⭐
+  
     /* Purple markers */
     createMarker(purpleIcon, 55.981872, -3.218589,
       'lightbox/dist/images/Caloplaca_marina_lichen_card_LR_010_24_08_24.jpg',
       'lightbox/dist/images/Caloplaca_marina_lichen_card_LR_010_24_08_24.jpg',
       'Caloplaca marina'
     );
-
+  
     createMarker(purpleIcon, 55.982597, -3.217955,
       'lightbox/dist/images/Caloplaca_verruculifera_lichen_card_LR_010_24_08_24.jpg',
       'lightbox/dist/images/Caloplaca_verruculifera_lichen_card_LR_010_24_08_24.jpg',
       'Caloplaca verruculifera'
     );
-
+  
     createMarker(purpleIcon, 55.983678, -3.218244,
       'lightbox/dist/images/Xanthoria_parietina__lichen_card_LR_010_24_08_24.jpg',
       'lightbox/dist/images/Xanthoria_parietina__lichen_card_LR_010_24_08_24.jpg',
       'Xanthoria parietina'
     );
-
+  
     createMarker(purpleIcon, 55.985202, -3.218212,
       'lightbox/dist/images/Myriolecis_actophila_helicopsis_lichen_card_LR_010_24_08_24.jpg',
       'lightbox/dist/images/Myriolecis_actophila_helicopsis_lichen_card_LR_010_24_08_24.jpg',
       'Myriolecis actophila'
     );
-
+  
     createMarker(purpleIcon, 55.986438, -3.2198,
       'lightbox/dist/images/Ramalina_siliquosa _lichen_card_LR_010_24_08_24.jpg',
       'lightbox/dist/images/Ramalina_siliquosa _lichen_card_LR_010_24_08_24.jpg',
       'Ramalina siliquosa'
     );
-
-    /* Yellow markers — FULL TEXT RESTORED */
+  
+    /* Yellow markers — full text restored */
     createMarker2(yellowIcon, 55.982223, -3.220904,
       'Look down over the edge of the breakwater. Can you see the different coloured zones on the rock? Green, brown (algae), orange and grey (lichen).'
     );
-
+  
     createMarker2(yellowIcon, 55.987082, -3.215595,
       'Mutual aid is clear in the symbiotic relationship between fungi and algae in lichen.'
     );
-
+  
     createMarker2(yellowIcon, 55.984277, -3.220133,
       'Seagull poo is high in nitrogen, which is toxic to many lichen species.'
     );
-
+  
     createMarker2(yellowIcon, 55.98507, -3.220174,
       'Storm Babet threw this hut into the sea. Extreme weather events are becoming increasingly common.'
     );
-
+  
     createMarker2(yellowIcon, 55.981345, -3.215847,
       'Look down over the edge of the breakwater. This zonation reflects differing environmental conditions.'
     );
-
+  
     createMarker2(yellowIcon, 55.980636, -3.218421,
       'What is a lichen? A lichen is a symbiotic assemblage between a fungal structure and an algal or cyanobacterial photosynthesiser.'
     );
-
+  
     createMarker2(yellowIcon, 55.986794, -3.220019,
       'Pedestrian action affects the distribution of lichen on this site. Which species is least tolerant?'
     );
-
+  
     createMarker2(yellowIcon, 55.985003, -3.215416,
       'The eastern side of the breakwater is exposed to higher waves and wind. This exposure changes zonation and distribution.'
     );
-
+  
     // Show map
     function showMap() {
       landing.style.display = 'none';
       mapEl.style.visibility = 'visible';
       cardsPageBtn.style.display = 'flex';
-
+  
       setTimeout(() => map.invalidateSize(), 300);
     }
-
+  
     enterBtn.addEventListener('click', showMap);
   </script>
+  
+  
 </body>
 </html>
